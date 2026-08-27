@@ -49,10 +49,9 @@ jobs:
           runtime: node@24
           version: 11
 
-      # Install only dev dependencies. Because the published package itself will have direct dependencies attached with it.
-      - run: pnpm install --frozen-lockfile --dev
+      - run: pnpm ci
 
-      # Add the peer dependencies to be tested.
+      # Add the peer dependency with the version to be tested.
       - run: pnpm add --filter="e2e-web-app" graphql-ws@${{ matrix.graphql-ws-peer }}
 
       # Add the published package. It will have its own version of the peer dependency.
