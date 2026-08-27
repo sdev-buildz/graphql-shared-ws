@@ -1,0 +1,23 @@
+{
+  "extends": "../tsconfig.references.base.json",
+  "compilerOptions": {
+    "outDir": "./dist",
+    "types": ["node"],
+    "paths": {
+      "@graphql-shared-ws": ["../src"],
+      "@root/*": ["../src/*"]
+    }
+  },
+  "include": ["./**/*.ts"],
+  "references": [
+    {
+      "path": "../src"
+    },
+    {
+      "path": "./mocks/mock-worker-thread"
+    },
+    {
+      "path": "./e2e/web-app"
+    }
+  ]
+}

@@ -1,0 +1,34 @@
+{
+  "compilerOptions": {
+    "types": ["node"],
+    "lib": ["ES2025", "DOM", "DOM.Iterable"],
+    "module": "preserve",
+    "target": "ES2025",
+    "esModuleInterop": true,
+    "allowJs": true,
+    "resolveJsonModule": true,
+    "allowSyntheticDefaultImports": true,
+    "allowImportingTsExtensions": true,
+    "noUnusedLocals": true,
+    "noUncheckedIndexedAccess": true,
+    "exactOptionalPropertyTypes": true,
+    "noEmit": true, //  Important. Set it to true.
+    "outDir": ".generated/root-tsc",
+    "strict": true,
+    "verbatimModuleSyntax": true,
+    "isolatedModules": true,
+    "noUncheckedSideEffectImports": true,
+    "moduleDetection": "force",
+    "noImplicitOverride": true,
+    "skipLibCheck": true,
+    "paths": {
+      "@features/*": ["./src/features/*"],
+      "@root/*": ["./*"],
+      "@graphql-shared-ws": ["./src"],
+      "@graphql-shared-ws/for-worker-thread": ["./src/for-worker-thread"],
+      "@src/*": ["./src/*"]
+    }
+  },
+  "exclude": ["**/dist*"],
+  "include": []
+}

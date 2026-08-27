@@ -1,0 +1,58 @@
+name: CI/CD Pipeline
+
+on:
+  pull_request:
+    branches: [main]
+
+jobs:
+  check-and-test-publish:
+    strategy:
+      matrix:
+        node: [22, 24]
+    runs-on: ubuntu-latest
+    outputs:
+      urls: ${{ steps.pkgprnew.outputs.urls }}
+    steps:
+      # - run: echo "skipped until public."
+      - uses: actions/checkout@v7
+      - uses: pnpm/setup@v2
+        with:
+          runtime: node@${{ matrix.node }}
+          version: 11
+
+      - run: pnpm ci
+      - run: pnpm exec prettier --write ./pnpm-lock.yaml
+      - run: pnpm run check
+
+      - name: Upload to pkgprnew
+        id: pkgprnew
+        if: matrix.node == 24
+        run: pnpm dlx pkg-pr-new publish
+
+  test-published-package:
+    runs-on: ubuntu-latest
+    needs: check-and-test-publish
+    strategy:
+      matrix:
+        graphql-ws-peer: ['5.5.5', '^6.0.0']
+    steps:
+      # v7
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+
+      - uses: pnpm/setup@84cb39b217b10273981911c288cd62326dc7c6d2
+        with:
+          runtime: node@24
+          version: 11
+
+      # Install only dev dependencies. Because the published package itself will have direct dependencies attached with it.
+      - run: pnpm install --frozen-lockfile --dev
+
+      # Add the peer dependencies to be tested.
+      - run: pnpm add --filter="e2e-web-app" graphql-ws@${{ matrix.graphql-ws-peer }}
+
+      # Add the published package. It will have its own version of the peer dependency.
+      - name: Install the published package for testing
+        run: pnpm add pkgprnew-published@${{ needs.check-and-test-publish.outputs.urls }}
+
+      - name: Run tests against the published package
+        run: pnpm exec turbo e2e:ci

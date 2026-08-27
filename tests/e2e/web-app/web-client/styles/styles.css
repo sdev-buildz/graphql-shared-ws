@@ -1,0 +1,86 @@
+@property --min-margin {
+  syntax: '<length>';
+  inherits: false;
+  initial-value: 12px;
+}
+
+/* Hides visually but not from screen readers */
+.visually-hidden {
+  border: 0;
+  /* eslint-disable-next-line css/use-baseline */
+  clip: rect(1px 1px 1px 1px);
+  /* eslint-disable-next-line css/use-baseline */
+  clip: rect(1px, 1px, 1px, 1px);
+  clip-path: inset(50%);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  white-space: nowrap;
+  width: 1px;
+  display: block;
+}
+
+button,
+input {
+  /* sizing */
+  --button-size-minimum: 40px;
+  min-height: var(--button-size-minimum);
+  max-block-size: 72px;
+  min-width: var(--button-size-minimum);
+  border-width: 1px;
+  border-radius: calc(var(--button-size-minimum) / 2);
+  padding-inline: 12px;
+}
+
+button {
+  display: block;
+  margin: var(--min-margin);
+  background-color: var(--button-bg);
+  transition: background-color 0.2s;
+  color: var(--color);
+  padding-block: 0;
+  white-space: nowrap;
+  &:hover {
+    cursor: pointer;
+    background-color: rgb(
+      from var(--button-bg) calc(r - r * 0.1) calc(g - g * 0.1)
+        calc(b - b * 0.1)
+    );
+  }
+  &:active {
+    background-color: rgb(
+      from var(--button-bg) calc(r - r * 0.2) calc(g - g * 0.2)
+        calc(b - b * 0.2)
+    );
+  }
+
+  &.primary {
+    --button-bg: var(--button-bg-primary);
+    --color: var(--color-bg-primary);
+  }
+}
+
+form {
+  & > *:not(:is(button, [popover])) {
+    display: block;
+    margin-top: var(--min-margin);
+    &:is(label + input) {
+      margin-top: calc(var(--min-margin) / 2);
+    }
+  }
+  & > button {
+    margin-inline: auto;
+    width: stretch;
+  }
+  .error-message {
+    color: red;
+  }
+  label {
+    font-weight: 400;
+  }
+}
+
+input {
+  width: stretch;
+}

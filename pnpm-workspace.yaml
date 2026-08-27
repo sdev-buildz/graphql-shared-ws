@@ -1,0 +1,13 @@
+allowBuilds:
+  esbuild: true
+
+minimumReleaseAgeExclude:
+  - random-tsstutils@0.0.12 || 0.1.0
+  - random12341234@1.2.6
+  - canonical-serialization@1.0.0
+  - ts-strict-utils@0.0.0
+
+packages:
+  - '.'
+  - 'packages/*'
+  - 'tests/e2e/web-app'

@@ -1,0 +1,61 @@
+.testing-panel {
+  width: fit-content;
+
+  button {
+    padding: 0.25rem;
+    padding-inline: 1rem;
+    border-radius: 1rem;
+    margin: 0.5rem;
+    &:hover {
+      cursor: pointer;
+    }
+  }
+
+  label {
+    font-weight: bold;
+    margin-block: 1rem;
+  }
+  input {
+    margin: 0.5rem;
+  }
+
+  dl {
+    display: grid;
+    grid-template-columns: max-content auto;
+    gap: 0.5rem;
+    dt {
+      grid-column-start: 1;
+      font-weight: bold;
+    }
+    dd {
+      grid-column-start: 2;
+      margin: 0px;
+    }
+  }
+
+  > section {
+    margin-top: 2rem;
+    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.2);
+    border: 1px solid blue;
+    border-radius: 1rem;
+    padding: 1rem;
+    > section {
+      border-radius: 1rem;
+      box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.2);
+      padding: 1rem;
+      margin-block: 1rem;
+    }
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    border-radius: 1rem;
+    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.2);
+    padding: 1rem;
+    dl {
+      margin-block: 0px;
+    }
+  }
+}
