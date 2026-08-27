@@ -19,7 +19,6 @@ export const config = {
   outDir: 'dist/shared-worker-string',
   deps: {
     alwaysBundle: ['**'],
-    skipNodeModulesBundle: false,
   },
   treeshake: true,
   minify: true,

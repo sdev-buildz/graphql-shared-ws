@@ -2,7 +2,9 @@
   "$schema": "https://turborepo.dev/schema.json",
 
   "tasks": {
-    "prettier:check": {},
+    "prettier:check": {
+      "dependsOn": ["build"]
+    },
     "lint": {},
 
     "build:worker-script": {

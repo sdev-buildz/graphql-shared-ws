@@ -63,7 +63,7 @@
     "inline-worker-script": "tsx src/util/worker-registration/inlineSharedWorkerScript.ts",
     "build:gql-types": "pnpm run tests:print-graphql-sdl && pnpm run tests:codegen && pnpm exec prettier --write **/*.graphql",
     "dev": "tsdown --watch",
-    "clean": "pnx  rimraf -g **/dist *.tsbuildinfo **/*.tsbuildinfo  **/generated generated .turbo **/.turbo coverage docs",
+    "clean": "pnx  rimraf -g **/dist *.tsbuildinfo **/*.tsbuildinfo  **/generated generated .turbo **/.turbo **/*.graphql coverage docs",
     "clean:all": "pn pn clean && pnx rimraf -g **/node_modules node_modules",
     "knip:main": "knip --workspace !tests/e2e/web-app",
     "knip:e2e-app": "knip --workspace tests/e2e/web-app",
