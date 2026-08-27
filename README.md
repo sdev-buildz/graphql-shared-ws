@@ -3,7 +3,7 @@
     GraphQL over Shared WebSocket
   </h1>
   <p align="center">
-    GraphQL over WebSocket clients sharing a single socket across browsing contexts.
+    GraphQL over WebSocket clients sharing a single socket across browsing contexts (across browser tabs, windows, iframes, etc...).
   </p>
 </header>
 
@@ -69,6 +69,14 @@ In case you are using custom WebSocket implementation, refer this [custom WebSoc
 ## 🔌 API Reference
 
 This library implements the exact same API as graphql-ws, except for the `webSocketImpl` field. For complete usage guides, configuration options, and type definitions, please refer to the [official graphql-ws documentation](https://the-guild.dev/graphql/ws). If you are using a custom WebSocket implementation, see the [custom WebSocket guide](CUSTOM_WEB_SOCKET.md).
+
+## ⚡ Optimizations
+
+### 📦 SharedWorker size
+
+- SharedWorker is 📦 bundled, 📉 minified, 🌳 tree-shaked, 🗜️ gzipped, 🔠 base64 encoded and 📥 inlined within this library.
+- All the SharedWorker registration logics (including decoding and unzipping) are handled by and within this library itself.
+- The size of the base64 encoding is 6 KB.
 
 ## 👥 Community & Support
 

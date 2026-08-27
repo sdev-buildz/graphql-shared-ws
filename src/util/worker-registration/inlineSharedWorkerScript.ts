@@ -12,6 +12,8 @@ const str = fs.readFileSync(builtChunkPath, 'utf-8')
 const compressed = zlib.gzipSync(str)
 // const compressed = zlib.brotliCompressSync(str)
 const b64string = compressed.toString('base64')
+console.log(`Compressed script's size in bytes =, ${compressed.length}`)
+console.log(`inlined Base64 string's size in bytes =', ${b64string.length}`)
 
 const stringToInline = template.replace(`<shared-worker-base64>`, b64string)
 
