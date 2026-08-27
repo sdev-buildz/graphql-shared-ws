@@ -6,10 +6,7 @@ import sharedConfig from '@root/tests/e2e/web-app/shared/config'
  */
 export default defineConfig({
   testDir: './tests/e2e/tests',
-  // testDir: './demo/e2e',/
-  // testMatch: '**/*.spec.ts',
-  // testMatch: '**/*.spec.ts',
-  // testMatch: '**/persistance.spec.ts',
+
   outputDir: './tests/e2e/generated/e2e-test-results/',
   reporter: [
     [
@@ -61,58 +58,58 @@ export default defineConfig({
       },
     },
 
-    // {
-    //   name: 'firefox',
-    //   use: { ...devices['Desktop Firefox'] },
-    //   /**
-    //    * Firefox takes more time setting up
-    //    *  fixtures like BrowserContexts.
-    //    */
-    //   // timeout: 50 * 1000,
-    //   timeout: 150 * 1000,
-    // },
+    {
+      name: 'firefox',
+      use: { ...devices['Desktop Firefox'] },
+      /**
+       * Firefox takes more time setting up
+       *  fixtures like BrowserContexts.
+       */
+      // timeout: 50 * 1000,
+      timeout: 150 * 1000,
+    },
 
-    // {
-    //   name: 'webkit',
-    //   use: { ...devices['Desktop Safari'] },
-    //   timeout: 50 * 1000,
-    // },
+    {
+      name: 'webkit',
+      use: { ...devices['Desktop Safari'] },
+      timeout: 50 * 1000,
+    },
 
-    // /* Test against mobile browsers. */
-    // {
-    //   name: 'Mobile Chrome',
-    //   use: {
-    //     ...devices['Pixel 5'],
-    //     launchOptions: {
-    //       args: ['--ignore-certificate-errors'],
-    //     },
-    //   },
-    // },
-    // {
-    //   name: 'Mobile Safari',
-    //   use: { ...devices['iPhone 12'] },
-    //   timeout: 50 * 1000,
-    // },
-    // // /* Test against branded browsers. */
-    // {
-    //   name: 'Microsoft Edge',
-    //   use: {
-    //     ...devices['Desktop Edge'],
-    //     channel: 'msedge',
-    //     launchOptions: {
-    //       args: ['--ignore-certificate-errors'],
-    //     },
-    //   },
-    // },
-    // {
-    //   name: 'Google Chrome',
-    //   use: {
-    //     ...devices['Desktop Chrome'],
-    //     channel: 'chrome',
-    //     launchOptions: {
-    //       args: ['--ignore-certificate-errors'],
-    //     },
-    //   },
-    // },
+    /* Test against mobile browsers. */
+    {
+      name: 'Mobile Chrome',
+      use: {
+        ...devices['Pixel 5'],
+        launchOptions: {
+          args: ['--ignore-certificate-errors'],
+        },
+      },
+    },
+    {
+      name: 'Mobile Safari',
+      use: { ...devices['iPhone 12'] },
+      timeout: 50 * 1000,
+    },
+    // /* Test against branded browsers. */
+    {
+      name: 'Microsoft Edge',
+      use: {
+        ...devices['Desktop Edge'],
+        channel: 'msedge',
+        launchOptions: {
+          args: ['--ignore-certificate-errors'],
+        },
+      },
+    },
+    {
+      name: 'Google Chrome',
+      use: {
+        ...devices['Desktop Chrome'],
+        channel: 'chrome',
+        launchOptions: {
+          args: ['--ignore-certificate-errors'],
+        },
+      },
+    },
   ],
 })
