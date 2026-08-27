@@ -5,7 +5,6 @@ import {
   type SocketId,
 } from '@shared/types'
 
-import { canonicalSerialization } from 'canonical-serialization'
 import { registerSharedWorker } from '../worker-registration'
 import type {
   getSharedWorkerStateEmitter,
@@ -119,7 +118,8 @@ export class SharedWorkerHandleWs implements WorkerHandleType {
       )
     ) {
       this.sharedWorker.port.postMessage(
-        canonicalSerialization(message, { keepCircularReferences: false })
+        // canonicalSerialization(message, { keepCircularReferences: false })
+        JSON.stringify(message)
       )
       return
     }
@@ -128,7 +128,8 @@ export class SharedWorkerHandleWs implements WorkerHandleType {
       message.facadeId = this.facadeIdValue
 
     this.sharedWorker.port.postMessage(
-      canonicalSerialization(message, { keepCircularReferences: false })
+      // canonicalSerialization(message, { keepCircularReferences: false })
+      JSON.stringify(message)
     )
     return
   }

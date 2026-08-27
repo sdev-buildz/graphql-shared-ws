@@ -22,7 +22,7 @@ export const handleMessageEvent = (eventParam: EventParamType): void => {
   if (typeof eventParam.event.data === 'string') {
     eventParam.event = {
       ...eventParam.event,
-      data: (0, eval)(eventParam.event.data),
+      data: JSON.parse(eventParam.event.data),
     }
   }
   if (!isShrWsMessage(eventParam.event.data)) return

@@ -1,3 +1,8 @@
+/**
+ * Messages shared between main thread and SharedWorker thread.
+ * @packageDocumentation
+ */
+
 import type { SubscribePayload } from 'graphql-ws'
 import type { StrictOmit } from 'ts-strict-utils'
 
@@ -36,7 +41,7 @@ export type SharedWsMessages = {
 
     /**
      * To initialize web socket inside worker.
-     * The worker creates new, only if a ws with the same graphql-ws client parameters
+     * The worker creates new, only if a ws with the same ws configurations
      *    doesn't already exist.
      */
     init: MessageToWorkerBaseType<'shr-ws-init'>
@@ -51,7 +56,7 @@ export type SharedWsMessages = {
 
     /**
      * To restart graphql subscription.
-     * It first closes the subscription connection. After that it re-subscribes.
+     * It first closes the subscription channel. After that it re-subscribes through the same ws connection.
      */
     restartSubscription: MessageToWorkerBaseType<'shr-ws-restart-subscription'> & {
       socketId: SocketId

@@ -1,15 +1,12 @@
 /**
- * Messages shared between main thread and SharedWorker thread.
- * @packageDocumentation
+ * Types for the messages sent over graphql-ws WebSocket.
  */
-
 import { MessageType, type SubscribePayload } from 'graphql-ws'
 
 /**
  * Augmented type field of messages sent over graphql-ws WebSocket.
  * Augmented to support restarting subscriptions.
  */
-
 const ShrMessageType = {
   ...MessageType,
   RestartSubscription: 'restart_subscription', // Choose your wire-protocol string value
