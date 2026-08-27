@@ -1,0 +1,21 @@
+{
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "lib": ["ES2025", "DOM", "DOM.Iterable"],
+    "jsx": "react-jsx",
+    "outDir": "./dist",
+    "paths": {
+      "@shared/*": ["./shared/*"],
+      "@types-gen-react-apollo": ["./generated/typescript-react-apollo"]
+    }
+  },
+  "references": [
+    {
+      "path": "./server"
+    },
+    {
+      "path": "./shared"
+    }
+  ],
+  "include": ["./**/*.ts", "./**/*.tsx", "./*.js"]
+}

@@ -1,0 +1,19 @@
+{
+  // Visit https://aka.ms/tsconfig to read more about this file
+  "extends": ["../tsconfig.references.base.json"],
+  "compilerOptions": {
+    "outDir": "./dist",
+    "paths": {
+      "@shared/*": ["./shared/*"]
+    }
+  },
+  "include": ["./**/*.ts"],
+  "references": [
+    {
+      "path": "./shared"
+    },
+    {
+      "path": "./for-worker-thread"
+    }
+  ]
+}

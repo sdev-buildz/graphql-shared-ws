@@ -1,0 +1,183 @@
+{
+  "$schema": "https://turborepo.dev/schema.json",
+
+  "tasks": {
+    "prettier:check": {
+      "dependsOn": ["build"]
+    },
+    "lint": {},
+
+    "build:worker-script": {
+      "description": "bundles shared-worker script into a single string.",
+      "outputs": ["./dist/shared-worker-string/**"],
+      "inputs": [
+        "tsdown.shared-worker-inline.config.ts",
+        "src/for-worker-thread/**",
+        "src/shared/**",
+        "!**/dist/**",
+        "!**/generated/**",
+        "pnpm-lock.yaml",
+        "package.json"
+      ]
+    },
+
+    "inline-worker-script": {
+      "description": "compresses and inlines the shared-worker script into the worker registration code.",
+      "dependsOn": ["build:worker-script"],
+      "outputs": [
+        "./src/util/worker-registration/generated/shared-worker-inline.ts"
+      ],
+      "inputs": [
+        "src/util/worker-registration/**",
+        "!**/dist/**",
+        "!**/generated/**",
+        "pnpm-lock.yaml",
+        "package.json"
+      ]
+    },
+
+    "build:implicit-shared-worker": {
+      "description": "Builds the shared-worker script and inlines it into the worker registration code."
+    },
+
+    "build:gql-types": {
+      "description": "Generates gql sdl files and gql types for tests (and website if present).",
+      "outputs": [
+        "**/*.graphql",
+        "tests/mocks/server/generated/**",
+        "tests/e2e/web-app/generated/typescript-react-apollo.tsx"
+      ],
+      "inputs": [
+        "tests/mocks/server/schema",
+        "tests/e2e/web-app/server/schema",
+        "!**/dist/**",
+        "!**/generated/**",
+        "pnpm-lock.yaml",
+        "package.json"
+      ]
+    },
+
+    "build-main": {
+      "description": "Builds the final bundle exported by package.json exports field.",
+      "dependsOn": ["build:implicit-shared-worker"],
+      "outputs": ["./dist/main/**"],
+      "inputs": [
+        "src/**",
+        "!src/for-worker-thread/**",
+        "!src/util/worker-registration/**",
+        "!**/dist/**",
+        "!**/generated/**",
+        "pnpm-lock.yaml",
+        "package.json"
+      ]
+    },
+
+    "build": {
+      "description": "Performs all the build tasks from building SharedWorker script to building final exported bundle."
+    },
+
+    "dev": {
+      "description": "",
+      "persistent": true,
+      "cache": false,
+      "inputs": [
+        "$TURBO_DEFAULT$",
+        "!.github/**",
+        "!.vscode/**",
+        "!*.md",
+        "!packages/logger/**",
+        "!tests/**",
+        "**/*tsconfig*.json"
+      ]
+    },
+
+    "type-check": {
+      "description": "Checks the TypeScript types.",
+      "dependsOn": ["build"],
+      "outputs": ["generated/root-tsc/**", "**/dist/**", "!dist/**"],
+      "inputs": [
+        "$TURBO_DEFAULT$",
+        "!.github/**",
+        "!.vscode/**",
+        "!.changeset/**",
+        "!*.md"
+      ]
+    },
+
+    "coverage": {
+      "dependsOn": ["build"],
+      "outputs": ["./coverage/**"],
+      "persistent": true,
+      "inputs": [
+        "$TURBO_DEFAULT$",
+        "!.github/**",
+        "!.vscode/**",
+        "!.changeset/**",
+        "!*.md"
+      ]
+    },
+    "coverage:ci": {
+      "dependsOn": ["build"],
+      "outputs": ["./coverage/**"],
+      "inputs": [
+        "$TURBO_DEFAULT$",
+        "!.github/**",
+        "!.vscode/**",
+        "!.changeset/**",
+        "!*.md"
+      ]
+    },
+    "knip": {
+      "dependsOn": ["build"],
+      "inputs": [
+        "$TURBO_DEFAULT$",
+        "!.github/**",
+        "!.vscode/**",
+        "!.changeset/**",
+        "**/*.md"
+      ]
+    },
+    "knip:ci": {
+      "dependsOn": ["build"],
+      "inputs": [
+        "$TURBO_DEFAULT$",
+        "!.github/**",
+        "!.vscode/**",
+        "!.changeset/**",
+        "**/*.md"
+      ]
+    },
+    "e2e": {
+      "dependsOn": ["build"],
+      "persistent": true,
+      "inputs": [
+        "src/**",
+        "packages/logger/**",
+        "tests/e2e/**",
+        "playwright.config.ts",
+        "!**/dist/**",
+        "!**/generated/**",
+        "pnpm-lock.yaml",
+        "pnpm-workspace.yaml",
+        "package.json",
+        "!**/node_modules/**"
+      ]
+    },
+    "e2e:ci": {
+      "dependsOn": ["build"],
+      "persistent": true,
+      "inputs": [
+        "src/**",
+        "packages/logger/**",
+        "tests/e2e/**",
+        "playwright.config.ts",
+        "!**/dist/**",
+        "!**/generated/**",
+        "pnpm-lock.yaml",
+        "pnpm-workspace.yaml",
+        "package.json",
+        "!**/node_modules/**"
+      ]
+    }
+  }
+}

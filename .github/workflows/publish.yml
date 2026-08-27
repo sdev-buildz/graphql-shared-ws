@@ -1,0 +1,38 @@
+name: Publish to npm
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: write
+  pull-requests: write
+  id-token: write
+
+jobs:
+  publish-npm:
+    runs-on: ubuntu-latest
+
+    steps:
+      # v7
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+
+        # v2
+      - uses: pnpm/setup@84cb39b217b10273981911c288cd62326dc7c6d2
+        with:
+          runtime: node@24
+          version: 11
+
+      - run: pnpm ci
+
+      - name: Create PR or Publish release
+        id: changesets
+        # v1
+        uses: changesets/action@a45c4d594aa4e2c509dc14a9f2b3b67ba3780d0d
+        with:
+          commit: 'chore: update versions'
+          title: 'chore: update versions'
+          publish: pnpm run release
+          createGithubReleases: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

@@ -1,0 +1,159 @@
+{
+  "name": "graphql-shared-ws",
+  "version": "0.0.0",
+  "description": "graphql clients sharing a single web socket connection across browsing contexts (such as tabs, windows, or iframes).",
+  "keywords": [
+    "graphql",
+    "web socket",
+    "shared worker",
+    "browsing contexts",
+    "shared web socket",
+    "cross browsing context"
+  ],
+  "license": "ISC",
+  "author": {
+    "name": "sdev-buildz",
+    "email": "stevexdev@zohomail.in",
+    "url": "https://github.com/sdev-buildz"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sdev_buildz/graphql-shared-ws.git"
+  },
+  "bugs": {
+    "url": "https://github.com/sdev-buildz/graphql-shared-ws/issues"
+  },
+  "type": "module",
+  "files": [
+    "./dist/main"
+  ],
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/main/index.d.mts",
+        "default": "./dist/main/index.mjs"
+      },
+      "require": {
+        "types": "./dist/main/index.d.cts",
+        "default": "./dist/main/index.cjs"
+      },
+      "types": "./dist/main/index.mjs",
+      "default": "./dist/main/index.mjs"
+    },
+    "./for-worker-thread": {
+      "import": {
+        "types": "./dist/main/for-worker-thread.d.mts",
+        "default": "./dist/main/for-worker-thread.mjs"
+      },
+      "require": {
+        "types": "./dist/main/for-worker-thread.cts",
+        "default": "./dist/main/for-worker-thread.cjs"
+      },
+      "types": "./dist/main/for-worker-thread.d.mts",
+      "default": "./dist/main/for-worker-thread.mjs"
+    }
+  },
+  "scripts": {
+    "check": "turbo run build prettier:check lint type-check coverage:ci e2e:ci knip:ci",
+    "release": "pnpm run clean && pnpm run check && pnpm publish -r",
+    "build": "turbo run build:implicit-shared-worker build-main build:gql-types",
+    "build-main": "tsdown",
+    "build:implicit-shared-worker": "turbo run build:worker-script inline-worker-script",
+    "build:worker-script": "tsdown -c tsdown.shared-worker-inline.config.ts",
+    "inline-worker-script": "tsx src/util/worker-registration/inlineSharedWorkerScript.ts",
+    "build:gql-types": "pnpm run tests:print-graphql-sdl && pnpm run tests:codegen && pnpm exec prettier --write **/*.graphql",
+    "dev": "tsdown --watch",
+    "clean": "pnx  rimraf -g **/dist *.tsbuildinfo **/*.tsbuildinfo  **/generated generated .turbo **/.turbo **/*.graphql coverage docs",
+    "clean:all": "pn pn clean && pnx rimraf -g **/node_modules node_modules",
+    "knip:main": "knip --workspace !tests/e2e/web-app",
+    "knip:e2e-app": "knip --workspace tests/e2e/web-app",
+    "knip": "pnpm run knip:main & pnpm run knip:e2e-app",
+    "knip:ci": "pnpm run knip:main && pnpm run knip:e2e-app",
+    "lint": "eslint",
+    "prettier:check": "prettier --check .",
+    "prettier:write": "prettier --write .",
+    "prettier:pnpm-lock": "prettier --write **/pnpm-lock.yaml",
+    "type-check": "tsc --build",
+    "unit-tests": "vitest",
+    "coverage": "vitest --coverage --ui",
+    "coverage:ci": "vitest run --coverage --ui=false",
+    "e2e": "playwright test --trace on",
+    "e2e:build": "pnpm exec playwright install --with-deps chromium",
+    "e2e:ci": "pnpm run e2e:build  && pnpm exec playwright test",
+    "e2e:start-react": "cd tests/e2e/web-app && pnpm run start-react-watch",
+    "e2e:start-server": "cd tests/e2e/web-app && pnpm run start-server",
+    "tests:print-graphql-sdl": "tsx ./tests/mocks/server/printSdl.ts",
+    "tests:codegen": "graphql-codegen --config tests/mocks/server/codegen.ts",
+    "docs:all": "pnpm run docs:user && pnpm run docs:dev",
+    "docs:dev": "typedoc --options typedoc.dev.js",
+    "docs:user": "typedoc --options typedoc.config.js"
+  },
+  "dependencies": {
+    "@changesets/cli": "^3.0.1",
+    "canonical-serialization": "^1.0.0",
+    "graphql": "^17.0.2",
+    "graphql-ws": "^6.2.1",
+    "ts-strict-utils": "^0.0.0"
+  },
+  "peerDependencies": {
+    "graphql-ws": ">=5.5.5 || >=6.0.0"
+  },
+  "peerDependenciesMeta": {
+    "graphql-ws": {
+      "optional": true
+    }
+  },
+  "engines": {
+    "node": "22.x || 24.x"
+  },
+  "devEngines": {
+    "runtime": {
+      "name": "node",
+      "version": "^24",
+      "onFail": "warn"
+    },
+    "packageManager": {
+      "name": "pnpm",
+      "version": "^11",
+      "onFail": "warn"
+    }
+  },
+  "devDependencies": {
+    "@changesets/changelog-github": "^1.0.0",
+    "@eslint/js": "^10.0.1",
+    "@graphql-codegen/cli": "^7.2.0",
+    "@graphql-codegen/typescript": "^6.1.0",
+    "@graphql-codegen/typescript-operations": "^6.1.5",
+    "@graphql-codegen/typescript-react-apollo": "^4.4.2",
+    "@playwright/test": "^1.62.1",
+    "@pothos/core": "^4.13.1",
+    "@types/node": "^26.1.2",
+    "@typescript/native": "npm:typescript@^7.0.2",
+    "@vitest/coverage-v8": "^4.1.10",
+    "@vitest/ui": "^4.1.10",
+    "eslint": "^10.8.0",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-jsdoc": "^63.3.3",
+    "eslint-plugin-react-hooks": "^7.1.1",
+    "eslint-plugin-react-naming-convention": "^5.18.3",
+    "eslint-plugin-react-refresh": "^0.5.3",
+    "eslint-plugin-tsdoc": "^0.5.2",
+    "globals": "^17.9.0",
+    "graphql-yoga": "^5.21.2",
+    "jsdom": "^30.0.1",
+    "knip": "^6.32.0",
+    "prettier": "^3.9.6",
+    "ts-morph": "^28.0.0",
+    "tsdown": "^0.22.14",
+    "tsx": "^4.23.9",
+    "turbo": "^2.10.11",
+    "typedoc": "^0.28.20",
+    "typescript": "npm:@typescript/typescript6@^6.0.2",
+    "typescript-eslint": "^8.66.0",
+    "vitest": "^4.1.10"
+  },
+  "funding": {
+    "type": "buymeacoffee",
+    "url": "https://buymeacoffee.com/stevenx.dev"
+  }
+}
