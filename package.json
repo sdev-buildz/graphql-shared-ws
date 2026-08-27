@@ -78,7 +78,7 @@
     "coverage": "vitest --coverage --ui",
     "coverage:ci": "vitest run --coverage --ui=false",
     "e2e": "playwright test --trace on",
-    "e2e:build": "pnpm exec playwright install --with-deps chromium",
+    "e2e:build": "pnpm exec playwright install --with-deps",
     "e2e:ci": "pnpm run e2e:build  && pnpm exec playwright test",
     "e2e:start-react": "cd tests/e2e/web-app && pnpm run start-react-watch",
     "e2e:start-server": "cd tests/e2e/web-app && pnpm run start-server",
