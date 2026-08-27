@@ -18,7 +18,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/sdev_buildz/graphql-shared-ws.git"
+    "url": "git+https://github.com/sdev-buildz/graphql-shared-ws.git"
   },
   "bugs": {
     "url": "https://github.com/sdev-buildz/graphql-shared-ws/issues"
@@ -36,9 +36,7 @@
       "require": {
         "types": "./dist/main/index.d.cts",
         "default": "./dist/main/index.cjs"
-      },
-      "types": "./dist/main/index.mjs",
-      "default": "./dist/main/index.mjs"
+      }
     },
     "./for-worker-thread": {
       "import": {
@@ -48,17 +46,13 @@
       "require": {
         "types": "./dist/main/for-worker-thread.cts",
         "default": "./dist/main/for-worker-thread.cjs"
-      },
-      "types": "./dist/main/for-worker-thread.d.mts",
-      "default": "./dist/main/for-worker-thread.mjs"
+      }
     }
   },
   "scripts": {
     "check": "turbo run build prettier:check lint type-check coverage:ci e2e:ci knip:ci",
     "release": "pnpm run clean && pnpm run check && pnpm publish -r",
-    "build": "turbo run build:implicit-shared-worker build-main build:gql-types",
     "build-main": "tsdown",
-    "build:implicit-shared-worker": "turbo run build:worker-script inline-worker-script",
     "build:worker-script": "tsdown -c tsdown.shared-worker-inline.config.ts",
     "inline-worker-script": "tsx src/util/worker-registration/inlineSharedWorkerScript.ts",
     "build:gql-types": "pnpm run tests:print-graphql-sdl && pnpm run tests:codegen && pnpm exec prettier --write **/*.graphql",

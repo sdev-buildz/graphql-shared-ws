@@ -18,7 +18,7 @@ Please follow a respectful, collaborative, and inclusive tone in all discussions
 1. Fork the repo and create a feature branch from the repository's default branch:
 
 ```shell
-   git clone https://github.com/sdev_buildz/graphql-shared-ws.git
+   git clone https://github.com/sdev-buildz/graphql-shared-ws.git
    cd graphql-shared-ws
    git checkout -b feat/short-description
 ```
@@ -32,7 +32,7 @@ Please follow a respectful, collaborative, and inclusive tone in all discussions
 3. Run linters, type checks, and tests locally before opening a PR:
 
 ```shell
-   pnpm run test
+   pnpm run unit-tests
    pnpm run check
 ```
 
