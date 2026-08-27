@@ -30,14 +30,13 @@
       "inputs": [
         "src/util/worker-registration/**",
         "!**/dist/**",
-        "!**/generated/**",
-        "pnpm-lock.yaml",
-        "package.json"
+        "!**/generated/**"
       ]
     },
 
     "build:implicit-shared-worker": {
-      "description": "Builds the shared-worker script and inlines it into the worker registration code."
+      "description": "Builds the shared-worker script and inlines it into the worker registration code.",
+      "dependsOn": ["build:worker-script", "inline-worker-script"]
     },
 
     "build:gql-types": {
@@ -47,14 +46,7 @@
         "tests/mocks/server/generated/**",
         "tests/e2e/web-app/generated/typescript-react-apollo.tsx"
       ],
-      "inputs": [
-        "tests/mocks/server/schema",
-        "tests/e2e/web-app/server/schema",
-        "!**/dist/**",
-        "!**/generated/**",
-        "pnpm-lock.yaml",
-        "package.json"
-      ]
+      "inputs": ["tests/mocks/server/schema", "tests/e2e/web-app/server/schema"]
     },
 
     "build-main": {
@@ -73,7 +65,12 @@
     },
 
     "build": {
-      "description": "Performs all the build tasks from building SharedWorker script to building final exported bundle."
+      "description": "Performs all the build tasks from building SharedWorker script to building final exported bundle.",
+      "dependsOn": [
+        "build:implicit-shared-worker",
+        "build-main",
+        "build:gql-types"
+      ]
     },
 
     "dev": {
