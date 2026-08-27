@@ -590,46 +590,54 @@ it('restarts subscriptions without affecting subscription channels in other brow
   client.subscribe(payload, sink)
 
   let i = 0
-  for (; i < 2; i += 1) {
-    await vi.advanceTimersByTimeAsync(1000)
 
-    expect(sink.next).toHaveBeenCalledTimes(i + 1)
-    expect(sink.next).toHaveBeenCalledWith({
-      data: {
-        subscribeIterator: `iterating_${i}`,
-      } satisfies Pick<Subscription, 'subscribeIterator'>,
-    } satisfies FormattedExecutionResult)
+  /** Expect 2 sink.next responses from server. */
+  async function expectSinkNextCalls() {
+    const j = i + 2
+    for (; i < j; i += 1) {
+      await vi.advanceTimersByTimeAsync(1000)
+
+      expect(sink.next).toHaveBeenCalledTimes(i + 1)
+      expect(sink.next).toHaveBeenCalledWith({
+        data: {
+          subscribeIterator: `iterating_${i}`,
+        } satisfies Pick<Subscription, 'subscribeIterator'>,
+      } satisfies FormattedExecutionResult)
+    }
   }
+
+  await expectSinkNextCalls()
 
   const { coreSocket, channelId } = getCoreInfo(payload)
 
-  const coreSendSpy = coreSocket.webSocket.send
+  const coreSendSpy = coreSocket.webSocket.send as Mock
 
-  client.restartSubscription(payload)
-  await waitForNextTick()
-  expect(coreSendSpy).toHaveBeenCalledWith(
-    JSON.stringify({
-      type: MessageType.Complete,
-      id: channelId,
-    } satisfies GqlWsMsgTypes)
-  )
-  expect(coreSendSpy).toHaveBeenCalledWith(
-    JSON.stringify({
-      type: MessageType.Subscribe,
-      id: channelId,
-      payload,
-    } satisfies GqlWsMsgTypes)
-  )
+  coreSendSpy.mockClear()
 
-  for (; i < 4; i += 1) {
-    await vi.advanceTimersByTimeAsync(1000)
+  //  Restarts 2 times.
+  for (let restartIter = 0; restartIter < 2; restartIter += 1) {
+    client.restartSubscription(payload)
+    await waitForNextTick()
 
-    expect(sink.next).toHaveBeenCalledTimes(i + 1)
-    expect(sink.next).toHaveBeenCalledWith({
-      data: {
-        subscribeIterator: `iterating_${i}`,
-      } satisfies Pick<Subscription, 'subscribeIterator'>,
-    } satisfies FormattedExecutionResult)
+    const { channelId: channelIdNew } = getCoreInfo(payload)
+    expect(coreSendSpy).toHaveBeenCalledWith(
+      JSON.stringify({
+        type: MessageType.Complete,
+        id: channelId,
+      } satisfies GqlWsMsgTypes)
+    )
+    expect(coreSendSpy).toHaveBeenCalledWith(
+      JSON.stringify({
+        id: channelIdNew,
+        type: MessageType.Subscribe,
+        payload: {
+          ...payload,
+          extensions: {},
+        },
+      } satisfies GqlWsMsgTypes)
+    )
+
+    await expectSinkNextCalls()
   }
 })
 

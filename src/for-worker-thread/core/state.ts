@@ -372,6 +372,10 @@ export class CoreWebSocket {
       } satisfies GqlWsMsgTypes)
     )
     subscription.channelId = message.id
+
+    this.channelIdToSubscriptionMap.delete(channelId)
+    this.channelIdToSubscriptionMap.set(subscription.channelId, subscription)
+
     this.webSocket.send(JSON.stringify(message satisfies GqlWsMsgTypes))
   }
 }
