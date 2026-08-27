@@ -1,0 +1,34 @@
+version: 2
+updates:
+  - package-ecosystem: npm
+    directory: '/'
+    schedule:
+      interval: weekly
+      day: monday
+      time: '09:00'
+    reviewers:
+      - sdev-buildz
+    labels:
+      - dependencies
+      - npm
+    commit-message:
+      prefix: 'chore'
+      prefix-scope: 'deps'
+      include: 'scope'
+    pull-request-branch-name:
+      separator: '/'
+
+  - package-ecosystem: github-actions
+    directory: '/'
+    schedule:
+      interval: weekly
+      day: monday
+      time: '09:00'
+    reviewers:
+      - sdev-buildz
+    labels:
+      - dependencies
+      - github-actions
+    commit-message:
+      prefix: 'ci'
+      include: 'scope'
