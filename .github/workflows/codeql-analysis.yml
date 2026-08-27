@@ -4,12 +4,13 @@ on:
   pull_request:
     branches: [main]
 
+permissions:
+  actions: read # Required for CodeQL to fetch telemetry/workflow run info
+  contents: read # Required to checkout the code
+  security-events: write # Required to upload CodeQL SARIF results to security tab
+
 jobs:
   analyze:
-    permissions:
-      actions: read # Required for CodeQL to fetch telemetry/workflow run info
-      contents: read # Required to checkout the code
-      security-events: write # Required to upload CodeQL SARIF results to security tab
     name: CodeQL Analyze
     runs-on: ubuntu-latest
     steps:

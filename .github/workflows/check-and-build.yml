@@ -4,6 +4,9 @@ on:
   pull_request:
     branches: [main]
 
+permissions:
+  contents: read
+
 jobs:
   check-and-test-publish:
     strategy:
@@ -13,9 +16,11 @@ jobs:
     outputs:
       urls: ${{ steps.pkgprnew.outputs.urls }}
     steps:
-      # - run: echo "skipped until public."
-      - uses: actions/checkout@v7
-      - uses: pnpm/setup@v2
+      # v7
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+
+        # v2
+      - uses: pnpm/setup@84cb39b217b10273981911c288cd62326dc7c6d2
         with:
           runtime: node@${{ matrix.node }}
           version: 11
