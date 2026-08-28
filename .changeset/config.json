@@ -6,7 +6,7 @@
   "changelog": [
     "@changesets/changelog-github",
     {
-      "repo": "innova-dev-builder/gsw-private-ci"
+      "repo": "sdev-buildz/graphql-shared-ws"
     }
   ],
   "commit": true,

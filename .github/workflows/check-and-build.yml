@@ -56,7 +56,7 @@ jobs:
 
       # Add the published package. It will have its own version of the peer dependency.
       - name: Install the published package for testing
-        run: pnpm add --filter="e2e-web-app" graphql-shared-ws@${{ needs.check-and-test-publish.outputs.urls }}
+        run: pnpm add --filter="e2e-web-app" graphql-shared-ws@https://pkg.pr.new/sdev-buildz/graphql-shared-ws/graphql-shared-ws@${{ github.event.pull_request.head.sha }}
 
       - name: Run tests against the published package
         run: pnpm run e2e:ci
