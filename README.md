@@ -78,6 +78,12 @@ This library implements the exact same API as graphql-ws, except for the `webSoc
 - All the SharedWorker registration logics (including decoding and unzipping) are handled by and within this library itself.
 - The size of the base64 encoding is 6 KB.
 
+### 🗂️ Subscription indexing
+
+- GraphQL subscriptions are indexed by their payloads across browsing contexts (across browser tabs, windows, iframes, etc...).
+- So if an end-user opens multiple tabs, network load will still remain the same as that of opening only one tab.
+- Making duplicate subscriptions across different UI components will not trigger extra network requests.
+
 ## 👥 Community & Support
 
 - 💬 _**Have an idea?**_ Suggest new features in [GitHub Discussions](../..//discussions).
