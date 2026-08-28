@@ -27,6 +27,7 @@
   "files": [
     "./dist/main"
   ],
+  "sideEffects": false,
   "exports": {
     ".": {
       "import": {
