@@ -34,6 +34,23 @@ jobs:
         if: matrix.node == 24
         run: pnpm dlx pkg-pr-new publish
 
+        # Pack the package into a .tgz tarball file
+      - name: Pack Tarball
+        id: pack
+        run: |
+          # pnpm pack outputs the exact filename to stdout. We capture it dynamically.
+          PACK_OUTPUT=$(pnpm pack)
+          echo "tarball_name=$PACK_OUTPUT" >> $GITHUB_OUTPUT
+
+      # Upload the tarball so the matrix job can access it
+      - name: Upload Pack Tarball
+        # v7.0.1
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
+        with:
+          name: packed-tarball
+          path: ${{ steps.pack.outputs.tarball_name }}
+          if-no-files-found: error
+
   test-published-package:
     runs-on: ubuntu-latest
     needs: check-and-test-publish
@@ -54,9 +71,22 @@ jobs:
       # Add the peer dependency with the version to be tested.
       - run: pnpm add --filter="e2e-web-app" graphql-ws@${{ matrix.graphql-ws-peer }}
 
-      # Add the published package. It will have its own version of the peer dependency.
-      - name: Install the published package for testing
-        run: pnpm add --filter="e2e-web-app" graphql-shared-ws@${{ needs.check-and-test-publish.outputs.urls }}
+      # Download the tarball produced by the 'build-and-pack' job
+      - name: Download Packed Tarball
+        # v7.0.1
+        uses: actions/upload-artifact/download-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
+        with:
+          name: packed-tarball
+          path: ./dist-tarball
+
+      # Add the packed (pnpm pack) package.
+      - name: Install Packed Package
+        run: |
+          # Find the exact tarball file from the absolute path
+          TARBALL_PATH=$(ls ./dist-tarball/*.tgz)
+
+          # Install your packed package alongside the specific matrix version of the peer dependency
+          pnpm add --filter="e2e-web-app" $TARBALL_PATH
 
       - name: Run tests against the published package
         run: pnpm run e2e:ci
