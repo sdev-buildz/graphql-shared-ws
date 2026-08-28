@@ -1,6 +1,6 @@
 {
   "name": "graphql-shared-ws",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "description": "graphql-ws clients sharing a single web socket connection across browsing contexts (such as tabs, windows, or iframes).",
   "keywords": [
     "graphql",
