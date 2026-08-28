@@ -54,7 +54,7 @@ sharedClient.subscribe(
 
 ## 📦 Migration from graphql-ws library
 
-🚀 In most cases, updating the import statements will be sufficient.
+🚀 You only need to update the import statements, unless you are using a custom WebSocket implementation.
 
 ```ts
 //  Before migration
@@ -76,12 +76,12 @@ This library implements the exact same API as graphql-ws, except for the `webSoc
 
 - SharedWorker is 📦 bundled, 📉 minified, 🌳 tree-shaked, 🗜️ gzipped, 🔠 base64 encoded and 📥 inlined within this library.
 - All the SharedWorker registration logics (including decoding and unzipping) are handled by and within this library itself.
-- The size of the base64 encoding is 6 KB.
+- The base64-encoded SharedWorker script is only 6 KB.
 
 ### 🗂️ Subscription indexing
 
 - GraphQL subscriptions are indexed by their payloads across browsing contexts (across browser tabs, windows, iframes, etc...).
-- So if an end-user opens multiple tabs, network load will still remain the same as that of opening only one tab.
+- When a user opens multiple tabs, network load remains identical to having just a single tab open.
 - Making duplicate subscriptions across different UI components will not trigger extra network requests.
 
 ## 👥 Community & Support

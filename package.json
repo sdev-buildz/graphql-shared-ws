@@ -27,6 +27,7 @@
   "files": [
     "./dist/main"
   ],
+  "sideEffects": false,
   "exports": {
     ".": {
       "import": {
@@ -83,7 +84,6 @@
     "docs:user": "typedoc --options typedoc.config.js"
   },
   "dependencies": {
-    "@changesets/cli": "^3.0.1",
     "canonical-serialization": "^1.0.0",
     "graphql": "^17.0.2",
     "graphql-ws": "^6.2.1",
@@ -113,6 +113,7 @@
     }
   },
   "devDependencies": {
+    "@changesets/cli": "^3.0.1",
     "@changesets/changelog-github": "^1.0.0",
     "@eslint/js": "^10.0.1",
     "@graphql-codegen/cli": "^7.3.1",
