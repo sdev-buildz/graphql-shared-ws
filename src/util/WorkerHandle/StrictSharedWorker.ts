@@ -12,7 +12,7 @@ class StrictMessagePort extends MessagePort {
 }
 
 /**
- * {@link globalThis.SharedWorker} with type safety to ensure that
+ * {@link globalThis.SharedWorker | SharedWorker} augmented with type safety to ensure that
  *  {@link AbortController.signal} is provided to every call to {@link MessagePort.addEventListener}.
  */
 export type StrictSharedWorker = Omit<SharedWorker, 'port'> & {

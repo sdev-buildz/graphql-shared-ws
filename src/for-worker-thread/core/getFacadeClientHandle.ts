@@ -29,7 +29,8 @@ export const getFacade = (
   }
 
   if (facade) return facade
-  /** Generate a new facade id and send it to the facade client. */
+
+  /** Generating new facade id for new facade. */
   if (
     !shrWsMessageTypeGuard<SharedWsMessages['toWorker']['getFacadeId']>(
       prop.event.data,

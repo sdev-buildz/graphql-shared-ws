@@ -14,7 +14,7 @@ import type { StrictSharedWorker } from './StrictSharedWorker'
 import { getNewFacadeId } from './util'
 
 /**
- * Worker Handle type for both shared and service worker handles.
+ * Base type for Worker Handles.
  */
 export type WorkerHandleType = {
   /** Posts message to worker */
@@ -46,13 +46,13 @@ export class SharedWorkerHandleWs implements WorkerHandleType {
   protected abortController: AbortController = new AbortController()
 
   /**
-   * Messages queued to be posted to shared worker.
+   * Messages queued to be posted to the shared worker.
    * They will be posted once facade id is assigned for this {@link SharedWorkerHandleWs}.
    */
   private messagesQueuedUntilId: MessageToWorker[] = []
 
   /**
-   * To be added listeners for message events from shared worker port.
+   * To be added listeners for message events from the shared worker.
    * They will be posted once facade id is assigned for this {@link SharedWorkerHandleWs}.
    */
   private listenersQueuedUntilWorker: Parameters<
@@ -95,7 +95,7 @@ export class SharedWorkerHandleWs implements WorkerHandleType {
     }
   }
 
-  /** Creates (or skips if already exists) core graphql-ws client inside shared worker. */
+  /** Creates (or skips if already exists) WebSocket inside shared worker. */
   private initCoreClient() {
     const messageToPost: SharedWsMessages['toWorker']['init'] = {
       messageType: 'shr-ws-init',
@@ -106,6 +106,7 @@ export class SharedWorkerHandleWs implements WorkerHandleType {
     this.postMessage(messageToPost)
   }
 
+  /** Posts message to worker */
   public postMessage(message: MessageToWorker) {
     if (!this.sharedWorker) {
       this.messagesQueuedUntilId.push(message)
@@ -117,20 +118,14 @@ export class SharedWorkerHandleWs implements WorkerHandleType {
         'shr-ws-get-facade-id'
       )
     ) {
-      this.sharedWorker.port.postMessage(
-        // canonicalSerialization(message, { keepCircularReferences: false })
-        JSON.stringify(message)
-      )
+      this.sharedWorker.port.postMessage(JSON.stringify(message))
       return
     }
     if (!this.facadeIdValue) return
     if (this.facadeIdValue && 'facadeId' in message)
       message.facadeId = this.facadeIdValue
 
-    this.sharedWorker.port.postMessage(
-      // canonicalSerialization(message, { keepCircularReferences: false })
-      JSON.stringify(message)
-    )
+    this.sharedWorker.port.postMessage(JSON.stringify(message))
     return
   }
 
@@ -160,7 +155,7 @@ export class SharedWorkerHandleWs implements WorkerHandleType {
     )
   }
 
-  /** Notes down facade-id assigned by worker */
+  /** Notes down facade-id assigned by the worker */
   private async setupFacadeIdHandler() {
     if (!this.sharedWorker) {
       return

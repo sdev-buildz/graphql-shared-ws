@@ -1,4 +1,4 @@
 /**
- * The shared worker base64 url
+ * The base-64-encoded SharedWorker script.
  */
 export const sharedWorkerBase64 = `<shared-worker-base64>`

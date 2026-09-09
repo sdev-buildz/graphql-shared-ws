@@ -73,6 +73,8 @@ export class CoreWebSocket {
     Channel['channelId'],
     Subscription
   > = new Map()
+
+  /** The Facade Sockets which were opened with this socket's parameters, thus sharing this socket. */
   public readonly facades: Set<FacadeSocket> = new Set()
 
   /** Facades waiting for {@link MessageType.ConnectionAck} message. */
@@ -83,11 +85,10 @@ export class CoreWebSocket {
     public readonly socketId: SocketId,
     /**
      * Disposes this socket.
-     * After dispose, if new facade sockets are opened with the same parameters as that of this,
+     * After disposal, if new facade sockets are opened with the same parameters as those of this,
      *  a new socket is created.
      */
     public readonly dispose: () => void
-    /** The Facade Sockets which were opened with this socket's parameters, thus sharing this socket. */
   ) {
     this.setupEventListeners()
   }
@@ -333,6 +334,7 @@ export class CoreWebSocket {
 
   /** handles WebSocket.close requests from facades. */
   public close(args: Parameters<WebSocket['close']>, facade: FacadeSocket) {
+    //  Unsubscribing the facade from all of its subscriptions.
     for (const [, subscription] of this.inflightSubscriptions.entries()) {
       for (const subscriber of subscription.subscribers) {
         if (subscriber.facadeId === facade.id)
@@ -346,6 +348,7 @@ export class CoreWebSocket {
       }
     }
     if (this.facades.size === 0) {
+      //  If no facades left, dispose this WehSocket
       this.webSocket.close(...args)
       this.dispose()
     }
