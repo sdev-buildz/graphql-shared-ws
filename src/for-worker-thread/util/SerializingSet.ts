@@ -1,5 +1,8 @@
+/**
+ * Recursively sort keys of the object.
+ * @returns JSON string of sorted object
+ */
 function getSortedJson(obj: Record<string, unknown>): string {
-  // Handle objects by sorting keys alphabetically
   const sortedObj: Record<string, unknown> = {}
   const sortedKeys = Object.keys(obj).sort()
 

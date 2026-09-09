@@ -1,4 +1,5 @@
 import { shrWsMessageTypeGuard, type SharedWsMessages } from '@shared/types'
+import type { createClient } from 'graphql-ws'
 import {
   WorkerHandle,
   type SharedWorkerOptions,
@@ -6,19 +7,23 @@ import {
 import { getSharedWorkerStateEmitter } from './util/WorkerHandle/getSharedWorkerStateEmitter'
 
 /**
- * Creates a WebSocket connection shared across browsing contexts using shared worker.
+ * Creates a WebSocket connection shared across browsing contexts via a Shared Worker.
+ * This implementation is designed for use with {@link createClient | graphql-ws} and exposes the
+ *  standard native {@link WebSocket | WebSocket} API for opening, managing, sending, and receiving data over
+ *  a shared connection.
  * @example
  * ```ts
  * import { SharedWebSocket } from 'graphql-shared-ws'
  * import { createClient } from 'graphql-ws'
  *
- * // create a client.
- * const sharedClient = createClient({ url: 'wss://example.com/api/graphql',
- *  //  pass the SharedWebSocket as the webSocketImpl
- *  webSocketImpl: SharedWebSocket
+ * // Create a client.
+ * const sharedClient = createClient({
+ *   url: 'wss://example.com/api/graphql',
+ *   // Pass `SharedWebSocket` as the `webSocketImpl`.
+ *   webSocketImpl: SharedWebSocket,
  * })
  *
- * // make a grpahql subscription
+ * // Make a GraphQL subscription.
  * sharedClient.subscribe(
  *  {
  *    query: `
@@ -114,7 +119,7 @@ export class SharedWebSocket implements Pick<
         )
       )
         return
-      // console.log('in shared socket event listener. event.data =',event.data)
+
       for (const listener of this.eventListeners[event.data.name]) {
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         listener(event.data.event as any)

@@ -32,7 +32,7 @@ export type SharedWsMessages = {
    */
   toWorker: {
     /**
-     * To get unique id for facade client in main thread.
+     * To get unique id for facade client (client in main thread).
      */
     getFacadeId: StrictOmit<
       MessageToWorkerBaseType<'shr-ws-get-facade-id'>,
@@ -57,6 +57,7 @@ export type SharedWsMessages = {
     /**
      * To restart graphql subscription.
      * It first closes the subscription channel. After that it re-subscribes through the same ws connection.
+     * The facades are not notified about the closing, because they could stop listening.
      */
     restartSubscription: MessageToWorkerBaseType<'shr-ws-restart-subscription'> & {
       socketId: SocketId
@@ -64,7 +65,7 @@ export type SharedWsMessages = {
     }
 
     /**
-     * To pong the worker.
+     * To pong.
      */
     pongToWorker: MessageToWorkerBaseType<'shr-ws-pong-to-worker'>
   }
@@ -80,13 +81,13 @@ export type SharedWsMessages = {
     }
 
     /**
-     * New id for the facade client in the main thread.
+     * New id for facade client.
      */
     facadeId: MessageBaseType<'shr-ws-facade-id'> & {
       id: string
     }
     /**
-     * To ping main thread from worker
+     * To ping.
      */
     pingFromWorker: MessageBaseType<'shr-ws-ping-from-worker'>
   }
@@ -129,7 +130,7 @@ export type ShrClientMessagesUnion =
   | SharedWsMessages['toWorker'][keyof SharedWsMessages['toWorker']]
 
 /**
- *  Type guard for {@link ShrClientMessagesUnion}.
+ *  Type guard for {@link ShrClientMessagesUnion | messages with shared worker}.
  */
 export const isShrWsMessage = (
   message: unknown
@@ -145,7 +146,8 @@ export const isShrWsMessage = (
 }
 
 /**
- * Type guard for {@link ShrClientMessagesUnion | messages with shared worker}.
+ * Generic type guard for {@link ShrClientMessagesUnion | messages with shared worker}.
+ * Type argument narrows down the {@link ShrClientMessagesUnion | union type}.
  */
 export const shrWsMessageTypeGuard = <
   MessageType extends ShrClientMessagesUnion,

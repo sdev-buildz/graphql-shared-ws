@@ -9,14 +9,21 @@ import { TypedObjKeyedMap } from 'ts-strict-utils'
 import { SharedWebSocket } from './SharedWebSocket'
 
 /**
- * graphql-ws client with its WebSocket shared across browsing contexts. (such as browser tabs, windows, or iframes)
+ * A graphql-ws client whose WebSocket connection is shared across browsing
+ * contexts, such as browser tabs, windows, and iframes.
+ *
+ * GraphQL subscriptions are indexed by their payloads, preventing duplicate subscription channels.
+ *
+ * In addition to the standard graphql-ws client methods, this client exposes
+ * {@link SharedClient.restartSubscription} for restarting an existing
+ * subscription.
  */
 export type SharedClient = Client & {
   restartSubscription: (payload: SubscribePayload, sink?: Sink) => () => void
 }
 
 /**
- * Configuration options to create {@link SharedClient}.
+ * Configuration options for creating a {@link SharedClient}.
  */
 export type SharedClientOptions = Omit<
   Parameters<typeof createClient>[0],
@@ -26,15 +33,22 @@ export type SharedClientOptions = Omit<
 }
 
 /**
- * Creates a graphql-ws client with its WebSocket shared across browsing contexts. (such as browser tabs, windows, or iframes)
+ * Creates a graphql-ws client whose WebSocket connection is shared across
+ * browsing contexts, such as browser tabs, windows, and iframes.
+ *
+ * GraphQL subscriptions are indexed by their payloads, preventing duplicate subscription channels.
+ *
+ * In addition to the standard graphql-ws client methods, this client exposes
+ * {@link SharedClient.restartSubscription} for restarting an existing
+ * subscription.
  * @example
  * ```ts
  * import { createSharedClient } from 'graphql-shared-ws'
  *
- * // create a client.
+ * // Create a client.
  * const sharedClient = createSharedClient({ url: 'wss://example.com/api/graphql' })
  *
- * // make a grpahql subscription
+ * // Create a GraphQL subscription.
  * sharedClient.subscribe(
  *  {
  *    query: `
@@ -61,6 +75,10 @@ export const createSharedClient = (
   options.webSocketImpl = SharedWebSocket
   const client = createClient(options)
 
+  /**
+   * Stores the sink for each subscription so it can be reused when the
+   * subscription is restarted.
+   */
   const sinks: TypedObjKeyedMap<SubscribePayload, Sink> = new TypedObjKeyedMap()
 
   return {

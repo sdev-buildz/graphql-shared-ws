@@ -4,12 +4,12 @@ type SharedWorkerStateEventListeners = {
   error: (error: unknown) => void
 }
 /**
- * Shared worker registration states
+ * SharedWorker registration states
  */
 export type SharedWorkerStateEvent = keyof SharedWorkerStateEventListeners
 
 /**
- * Shared worker state event listeners
+ * SharedWorker state event listeners
  */
 export type SharedWorkerStateEventListener<
   Event extends SharedWorkerStateEvent = SharedWorkerStateEvent,
@@ -23,7 +23,7 @@ export type InitialListeners = {
 }
 
 /**
- * Get shared worker state emitter
+ * Get SharedWorker state emitter
  */
 export const getSharedWorkerStateEmitter = () => {
   const listeners: Required<{

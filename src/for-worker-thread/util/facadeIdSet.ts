@@ -1,10 +1,10 @@
 /**
- * Used to enforce uniqueness among subscriber ids.
+ * Used to enforce uniqueness among facade ids.
  */
 const facadeIdSet = new Set<string>()
 
 /**
- * Generates a new unique id to uniquely identify a subscriber.
+ * Generates a new unique id to uniquely identify a facade.
  */
 export const generateFacadeId = () => {
   do {

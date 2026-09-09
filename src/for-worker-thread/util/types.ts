@@ -29,7 +29,7 @@ export const createFacade = (newFacade: {
 
 /**
  * Modified {@link MessageEvent}.
- * {@link MessageEvent.ports} should be an array of length atleast 2.
+ * {@link MessageEvent.ports} should be an array with atleast 2 elements.
  */
 type MessageEventWithRequiredPort = Omit<
   Parameters<NonNullable<MessagePort['onmessage']>>[0],

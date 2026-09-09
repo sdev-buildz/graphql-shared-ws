@@ -11,10 +11,14 @@ import type { WorkerHandleType } from './SharedWorkerHandle'
  */
 export const getNewFacadeId = (
   socketId: SocketId,
+  /** Callback to listen to message events from the SharedWorker */
   addMessageEventListener: WorkerHandleType['addMessageEventListener'],
+  /** Callback to post messages to the SharedWorker */
   postMessage: WorkerHandleType['postMessage'],
+  /** Messages queued until facade-id is received */
   messagesQueuedUntilId: MessageToWorker[],
-  setSubscriberId: (id: string) => void
+  /** Callback to set facade-id */
+  setFacadeId: (id: string) => void
 ): void => {
   const subIdAbortController = new AbortController()
 
@@ -26,7 +30,7 @@ export const getNewFacadeId = (
       )
     )
       return
-    setSubscriberId(event.data.id)
+    setFacadeId(event.data.id)
     subIdAbortController.abort()
     messagesQueuedUntilId.forEach((message) => {
       postMessage(message)
