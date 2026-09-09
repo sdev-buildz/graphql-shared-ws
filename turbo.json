@@ -25,7 +25,7 @@
       "description": "compresses and inlines the shared-worker script into the worker registration code.",
       "dependsOn": ["build:worker-script"],
       "outputs": [
-        "./src/util/worker-registration/generated/shared-worker-inline.ts"
+        "./src/util/worker-registration/tracked-generated/shared-worker-inline.ts"
       ],
       "inputs": [
         "src/util/worker-registration/**",
