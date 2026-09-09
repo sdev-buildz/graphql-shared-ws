@@ -113,16 +113,6 @@ export type ShrWsFromWorkerMessageBaseType = {
 }
 
 /**
- * Callback functions in Client Options which can be exectued in the main thread itself.
- * These functions are either async or returns void.
- *    Otherwise they should be executed in the worker thread.
- */
-export type AsyncClientOptionsType = Extract<
-  keyof SocketId,
-  'url' | 'connectionParams' | 'onNonLazyError' | 'retryWait'
->
-
-/**
  * The union of all the messages sent either to or from worker.
  */
 export type ShrClientMessagesUnion =
