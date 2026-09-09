@@ -67,7 +67,7 @@ export type SharedWsMessages = {
     /**
      * To pong.
      */
-    pongToWorker: MessageToWorkerBaseType<'shr-ws-pong-to-worker'>
+    pong: MessageToWorkerBaseType<'shr-ws-pong-to-worker'>
   }
 
   /**
@@ -89,7 +89,7 @@ export type SharedWsMessages = {
     /**
      * To ping.
      */
-    pingFromWorker: MessageBaseType<'shr-ws-ping-from-worker'>
+    ping: MessageBaseType<'shr-ws-ping-from-worker'>
   }
 }
 

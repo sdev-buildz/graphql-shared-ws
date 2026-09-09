@@ -97,16 +97,15 @@ export const registerSharedWorker = async (): Promise<SharedWorker> => {
       let workerUrl: string
       if (customSharedWorkerScript.url) {
         workerUrl = customSharedWorkerScript.url
-        sharedWorker = new SharedWorker(workerUrl, options)
       } else {
         const workerScript = await decompressGzipString(sharedWorkerBase64)
         const blob = new Blob([workerScript])
         workerUrl = URL.createObjectURL(blob)
         await isBlobUrlValid(workerUrl)
-        sharedWorker = new SharedWorker(workerUrl, options)
         localStorage.setItem(getLsKeyForWorkerUrl(options), workerUrl)
       }
 
+      sharedWorker = new SharedWorker(workerUrl, options)
       sharedWorker.port.start()
       setSharedWorker(sharedWorker)
     })
