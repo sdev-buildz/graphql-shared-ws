@@ -108,16 +108,6 @@ export class CoreWebSocket {
       } satisfies SharedWsMessages['fromWorker']['event'])
       return
     }
-
-    if (this.webSocket.readyState === WebSocket.CLOSED) {
-      facade.postMessage({
-        messageType: 'shr-ws-event',
-        name: 'close',
-        socketId: this.socketId,
-        event: this.closeEvent,
-      } satisfies SharedWsMessages['fromWorker']['event'])
-      return
-    }
   }
 
   /** Handles events sent from server. */
