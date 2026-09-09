@@ -3,7 +3,7 @@ import * as zlib from 'node:zlib'
 import path from 'path'
 
 const builtChunkPath = `${process.cwd()}/dist/shared-worker-string/sharedWorker.iife.js`
-const toInlinePath = `${import.meta.dirname}/generated/shared-worker-inline.ts`
+const toInlinePath = `${import.meta.dirname}/tracked-generated/shared-worker-inline.ts`
 const templatePath = `${import.meta.dirname}/util/shared-worker-inline-template.ts`
 
 const template = fs.readFileSync(templatePath, 'utf-8')

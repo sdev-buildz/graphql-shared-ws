@@ -1,5 +1,5 @@
 import { canonicalSerialization } from 'canonical-serialization'
-import { sharedWorkerBase64 } from './generated/shared-worker-inline'
+import { sharedWorkerBase64 } from './tracked-generated/shared-worker-inline'
 import { decompressGzipString } from './util/decompressGzipB64'
 import { sharedWorkerInContext } from './util/sharedWorkersInContext'
 
