@@ -2,6 +2,7 @@ import { canonicalSerialization } from 'canonical-serialization'
 import type { SharedWebSocket } from '../../SharedWebSocket'
 import { sharedWorkerBase64 } from './tracked-generated/shared-worker-inline'
 import { decompressGzipString } from './util/decompressGzipB64'
+import { isBlobUrlValid } from './util/isBlobUrlValid'
 import { sharedWorkerInContext } from './util/sharedWorkersInContext'
 
 /** Allows users to provide their own SharedWorker script. */
@@ -34,28 +35,6 @@ const getLsKeyForWorkerUrl = (
   options: ConstructorParameters<typeof SharedWorker>[1]
 ) => {
   return `${lsWorkerUrlKeyPrefix}${canonicalSerialization(options)}`
-}
-
-/** Checks whether a blob URL is syntactically valid and accessible. */
-const isBlobUrlValid = async (url: string | URL): Promise<boolean> => {
-  try {
-    // A URL can remain in Local Storage after its blob has been revoked.
-    const parsedUrl = new URL(url)
-    if (parsedUrl.protocol !== 'blob:') {
-      throw new Error('Invalid URL protocol. Expected blob:')
-    }
-
-    const response = await fetch(url)
-    if (!response.ok) {
-      throw new Error('Blob URL cannot be accessed.')
-    }
-    return true
-  } catch (error) {
-    console.error('Blob URL validation failed:', error)
-    // Release the URL when it is no longer usable in this context.
-    URL.revokeObjectURL(url.toString())
-    return false
-  }
 }
 
 /**
