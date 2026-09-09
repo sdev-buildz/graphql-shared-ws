@@ -3,13 +3,13 @@
     GraphQL over Shared WebSocket
   </h1>
   <p align="center">
-    GraphQL over WebSocket clients sharing a single socket across browsing contexts (across browser tabs, windows, iframes, etc...).
+    GraphQL over WebSocket clients sharing a single socket across all browsing contexts such as browser tabs, windows, iframes, etc...
   </p>
 </header>
 
 ## ✨ Features
 
-- Share a single web socket across all the clients across all the browsing contexts (across browser tabs, windows, iframes, etc...).
+- Share a single WebSocket across browser tabs, windows, and iframes.
 - GraphQL subscriptions are indexed by their payloads, preventing duplicate requests and responses across browsing contexts.
 - A swap-in [graphql-ws](https://github.com/enisdenjo/graphql-ws) wrapper with an identical API.
 
@@ -21,7 +21,7 @@ npm install graphql-shared-ws
 
 ## 💻 Usage
 
-### 🚀 Initialize and subscribe <a id="initialize-and-subcribe"></a>
+### 🚀 Initialize and subscribe
 
 ```ts
 import { createSharedClient } from 'graphql-shared-ws'
@@ -31,7 +31,7 @@ const sharedClient = createSharedClient({
   url: 'wss://example.com/api/graphql',
 })
 
-// make a grpahql subscription
+// make a GraphQL subscription
 sharedClient.subscribe(
   {
     query: `
@@ -64,18 +64,18 @@ import { createClient } from 'graphql-ws'
 import { createSharedClient as createClient } from 'graphql-shared-ws'
 ```
 
-In case you are using custom WebSocket implementation, refer this [custom WebSocket guide](CUSTOM_WEB_SOCKET.md).
+If you are using custom WebSocket implementation, refer to this [custom WebSocket guide](CUSTOM_WEB_SOCKET.md).
 
 ## 🔌 API Reference
 
-This library implements the exact same API as graphql-ws, except for the `webSocketImpl` field. For complete usage guides, configuration options, and type definitions, please refer to the [official graphql-ws documentation](https://the-guild.dev/graphql/ws). If you are using a custom WebSocket implementation, see the [custom WebSocket guide](CUSTOM_WEB_SOCKET.md).
+This library implements the exact same API as graphql-ws, except for the `webSocketImpl` field. For complete usage guides, configuration options, and type definitions, please refer to the [official graphql-ws documentation](https://the-guild.dev/graphql/ws). If you are using a custom WebSocket implementation, refer to the [custom WebSocket guide](CUSTOM_WEB_SOCKET.md).
 
 ## ⚡ Optimizations
 
 ### 📦 SharedWorker size
 
-- SharedWorker is 📦 bundled, 📉 minified, 🌳 tree-shaked, 🗜️ gzipped, 🔠 base64 encoded and 📥 inlined within this library.
-- All the SharedWorker registration logics (including decoding and unzipping) are handled by and within this library itself.
+- The SharedWorker script is 📦 bundled, 🌳 tree-shaken, 📉 minified, 🗜️ gzipped, 🔠 base64 encoded and 📥 inlined within this library.
+- All the SharedWorker registration logic (including decoding and decompression) are automatically handled by and within this library itself.
 - The base64-encoded SharedWorker script is only 6 KB.
 
 ### 🗂️ Subscription indexing
