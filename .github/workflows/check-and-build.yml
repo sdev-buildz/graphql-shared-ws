@@ -8,6 +8,7 @@ permissions:
   contents: read
 
 jobs:
+  # Runs checks and publishes to pkgprnew
   check-and-test-publish:
     strategy:
       matrix:
@@ -34,6 +35,7 @@ jobs:
         if: matrix.node == 24
         run: pnpm dlx pkg-pr-new publish
 
+  # Installs the new pkg from pkgprnew and run e2e tests against the pkg and peer dep versions.
   test-published-package:
     runs-on: ubuntu-latest
     needs: check-and-test-publish
