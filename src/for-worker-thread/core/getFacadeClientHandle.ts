@@ -2,7 +2,7 @@ import {
   isShrWsMessage,
   shrWsMessageTypeGuard,
   type SharedWsMessages,
-} from '@shared/types'
+} from '@shared'
 import type { handleMessageEvent } from '../handler'
 import { generateFacadeId } from '../util/facadeIdSet'
 import { createFacade, type FacadeSocket } from '../util/types'

@@ -1,4 +1,4 @@
-import type { MessageFromWorker } from '@shared/types'
+import type { MessageFromWorker } from '@shared'
 import type { ClientOptions } from 'graphql-ws'
 import type { handleMessageEvent } from '../'
 

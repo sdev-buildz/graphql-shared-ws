@@ -1,16 +1,16 @@
+import type { SharedWsMessages, SocketId } from '@shared'
 import {
+  getNormalizedPayload,
   isGqlWsMsg,
   type ExtractMessageTypeByType,
   type GqlWsMsgTypes,
-} from '@shared/graphql-ws-messages.types'
-import type { SharedWsMessages, SocketId } from '@shared/types'
+} from '@shared'
 import {
   MessageType,
   type ClientOptions,
   type SubscribePayload,
 } from 'graphql-ws'
 import { typedObjectEntries, TypedObjKeyedMap } from 'ts-strict-utils'
-import { getNormalizedPayload } from '../../shared/getNormalizedPayload'
 import { SerializingSet } from '../util/SerializingSet'
 import type { FacadeSocket } from '../util/types'
 

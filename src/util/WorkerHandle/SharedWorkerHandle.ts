@@ -3,7 +3,7 @@ import {
   type MessageToWorker,
   type SharedWsMessages,
   type SocketId,
-} from '@shared/types'
+} from '@shared'
 
 import { registerSharedWorker } from '../worker-registration'
 import type {
