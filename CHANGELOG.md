@@ -1,5 +1,15 @@
 # graphql-shared-ws
 
+## 1.0.2
+
+### Patch Changes
+
+- [#19](https://github.com/sdev-buildz/graphql-shared-ws/pull/19) [`d10ea49`](https://github.com/sdev-buildz/graphql-shared-ws/commit/d10ea49853d616943ba7a007d10eadf381422186) Thanks [@sdev-buildz](https://github.com/sdev-buildz)! - fix: handle comments in graphql query strings when extracting graphql operation name
+
+- [#21](https://github.com/sdev-buildz/graphql-shared-ws/pull/21) [`690891a`](https://github.com/sdev-buildz/graphql-shared-ws/commit/690891a8401170e2fb15d90cdf3ef12ff1fd1e30) Thanks [@sdev-buildz](https://github.com/sdev-buildz)! - docs: improve readme and comments
+
+- [#21](https://github.com/sdev-buildz/graphql-shared-ws/pull/21) [`690891a`](https://github.com/sdev-buildz/graphql-shared-ws/commit/690891a8401170e2fb15d90cdf3ef12ff1fd1e30) Thanks [@sdev-buildz](https://github.com/sdev-buildz)! - docs: fix bugs in code comments
+
 ## 1.0.1
 
 ### Patch Changes
