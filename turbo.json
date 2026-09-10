@@ -15,7 +15,7 @@
         "src/for-worker-thread/**",
         "src/shared/**",
         "!**/dist/**",
-        "!**/generated/**",
+        "!**/*generated*/**",
         "pnpm-lock.yaml",
         "package.json"
       ]
@@ -30,7 +30,7 @@
       "inputs": [
         "src/util/worker-registration/**",
         "!**/dist/**",
-        "!**/generated/**"
+        "!**/*generated*/**"
       ]
     },
 
@@ -58,7 +58,7 @@
         "!src/for-worker-thread/**",
         "!src/util/worker-registration/**",
         "!**/dist/**",
-        "!**/generated/**",
+        "!**/*generated*/**",
         "pnpm-lock.yaml",
         "package.json"
       ]
@@ -153,7 +153,7 @@
         "tests/e2e/**",
         "playwright.config.ts",
         "!**/dist/**",
-        "!**/generated/**",
+        "!**/*generated*/**",
         "pnpm-lock.yaml",
         "pnpm-workspace.yaml",
         "package.json",
@@ -169,7 +169,7 @@
         "tests/e2e/**",
         "playwright.config.ts",
         "!**/dist/**",
-        "!**/generated/**",
+        "!**/*generated*/**",
         "pnpm-lock.yaml",
         "pnpm-workspace.yaml",
         "package.json",
