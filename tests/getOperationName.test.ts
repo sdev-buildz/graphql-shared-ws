@@ -67,3 +67,35 @@ it('should return the operation name from graphql query strings with variable pa
   `
   expect(extractOperationName(query3)).toBe('testMutation')
 })
+
+it('should handle graphql whitespace and comments', () => {
+  const query = '\tquery\n  testQuery(\n    $suffix: String\n  ) { field1 }'
+  expect(extractOperationName(query)).toBe('testQuery')
+
+  const queryWithComments = `
+    #operation comment
+    query testQuery {
+      # comment
+        field1
+      }
+  `
+  expect(extractOperationName(queryWithComments)).toBe('testQuery')
+})
+
+it('should return undefined for anonymous operations', () => {
+  expect(extractOperationName('{ field1 }')).toBeUndefined()
+  expect(extractOperationName('query { field1 }')).toBeUndefined()
+  expect(extractOperationName('query # comment \n { field1 }')).toBeUndefined()
+  expect(extractOperationName('mutation\n{ field1 }')).toBeUndefined()
+  expect(extractOperationName('subscription\t{ field1 }')).toBeUndefined()
+})
+
+it(`return undefined for invalid query strings.`, () => {
+  expect(extractOperationName('query# qname \n { field1 }')).toBeUndefined()
+  expect(extractOperationName('query#str testQuery { field1 }')).toBeUndefined()
+  expect(
+    extractOperationName('query#str \n testQuery { field1 }')
+  ).toBeUndefined()
+  expect(extractOperationName('query#\n  { field1 }')).toBeUndefined()
+  expect(extractOperationName('qu1ery \n testQuery { field1 }')).toBeUndefined()
+})

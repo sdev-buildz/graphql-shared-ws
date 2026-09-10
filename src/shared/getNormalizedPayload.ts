@@ -4,13 +4,18 @@ import type { SubscribePayload } from 'graphql-ws'
  * Extracts Operation name from GraphQL query string.
  */
 export const extractOperationName = (query: string): string | undefined => {
-  const secondToken = query.trim().split(' ')[1]
-  if (!secondToken) return undefined
-  if (secondToken.startsWith('(') || secondToken.startsWith('{'))
-    return undefined
-  const indexOfParamBrace = secondToken.indexOf('(')
-  if (indexOfParamBrace === -1) return secondToken
-  return secondToken.slice(0, indexOfParamBrace)
+  const ignoredChars = String.raw`(?:\uFEFF|[\s,])`
+  const comment = String.raw`#[^\r\n]*(?:\r\n?|\n|$)`
+
+  const ignored = `(?:${ignoredChars}|${comment})`
+
+  const graphqlOperationRegex = new RegExp(
+    String.raw`^${ignored}*(?:query|mutation|subscription)(?!#)${ignored}+([_A-Za-z][_0-9A-Za-z]*)`
+  )
+
+  const operationMatch = query.match(graphqlOperationRegex)
+
+  return operationMatch?.[1]
 }
 
 /**
