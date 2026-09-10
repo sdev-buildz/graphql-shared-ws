@@ -1,4 +1,4 @@
-import { isShrWsMessage, type SharedWsMessages } from '@shared/types'
+import { isShrWsMessage, type SharedWsMessages } from '@shared'
 import type { ClientOptions } from 'graphql-ws'
 import { getFacade } from './core'
 import { webSocketsInWorker } from './core/state'

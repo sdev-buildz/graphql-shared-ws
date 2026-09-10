@@ -4,7 +4,7 @@
   "compilerOptions": {
     "outDir": "./dist",
     "paths": {
-      "@shared/*": ["./shared/*"]
+      "@shared": ["./shared"]
     }
   },
   "include": ["./**/*.ts"],

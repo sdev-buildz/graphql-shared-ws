@@ -1,4 +1,4 @@
-import { shrWsMessageTypeGuard, type SharedWsMessages } from '@shared/types'
+import { shrWsMessageTypeGuard, type SharedWsMessages } from '@shared'
 import type { createClient } from 'graphql-ws'
 import {
   WorkerHandle,

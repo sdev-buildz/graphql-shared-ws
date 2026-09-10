@@ -1,4 +1,4 @@
-import { getNormalizedPayload } from '@shared/getNormalizedPayload'
+import { getNormalizedPayload } from '@shared'
 import {
   createClient,
   type Client,
