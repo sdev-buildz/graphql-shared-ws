@@ -1,11 +1,11 @@
-<header>
+<hgroup>
   <h1 align="center">
     GraphQL over Shared WebSocket
   </h1>
   <p align="center">
-    GraphQL over WebSocket clients sharing a single socket across all browsing contexts such as browser tabs, windows, iframes, etc...
+    GraphQL over WebSocket clients sharing a single socket across browsing contexts such as browser tabs, windows, and iframes while avoiding duplicate subscription channels
   </p>
-</header>
+</hgroup>
 
 ## ✨ Features
 
