@@ -13,7 +13,6 @@ export const isBlobUrlValid = async (url: string | URL): Promise<boolean> => {
     }
     return true
   } catch (error) {
-    console.error('Blob URL validation failed:', error)
     // Release the URL when it is no longer usable in this context.
     URL.revokeObjectURL(url.toString())
     return false
