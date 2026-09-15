@@ -3,7 +3,7 @@
 
   "tasks": {
     "prettier:check": {
-      "dependsOn": ["build"]
+      "dependsOn": ["turbo-build"]
     },
     "lint": {},
 
@@ -64,7 +64,7 @@
       ]
     },
 
-    "build": {
+    "turbo-build": {
       "description": "Performs all the build tasks from building SharedWorker script to building final exported bundle.",
       "dependsOn": [
         "build:implicit-shared-worker",
@@ -90,7 +90,7 @@
 
     "type-check": {
       "description": "Checks the TypeScript types.",
-      "dependsOn": ["build"],
+      "dependsOn": ["turbo-build"],
       "outputs": ["generated/root-tsc/**", "**/dist/**", "!dist/**"],
       "inputs": [
         "$TURBO_DEFAULT$",
@@ -102,7 +102,7 @@
     },
 
     "coverage": {
-      "dependsOn": ["build"],
+      "dependsOn": ["turbo-build"],
       "outputs": ["./coverage/**"],
       "persistent": true,
       "inputs": [
@@ -114,7 +114,7 @@
       ]
     },
     "coverage:ci": {
-      "dependsOn": ["build"],
+      "dependsOn": ["turbo-build"],
       "outputs": ["./coverage/**"],
       "inputs": [
         "$TURBO_DEFAULT$",
@@ -125,7 +125,7 @@
       ]
     },
     "knip": {
-      "dependsOn": ["build"],
+      "dependsOn": ["turbo-build"],
       "inputs": [
         "$TURBO_DEFAULT$",
         "!.github/**",
@@ -135,7 +135,7 @@
       ]
     },
     "knip:ci": {
-      "dependsOn": ["build"],
+      "dependsOn": ["turbo-build"],
       "inputs": [
         "$TURBO_DEFAULT$",
         "!.github/**",
@@ -145,7 +145,7 @@
       ]
     },
     "e2e": {
-      "dependsOn": ["build"],
+      "dependsOn": ["turbo-build"],
       "persistent": true,
       "inputs": [
         "src/**",
@@ -161,7 +161,7 @@
       ]
     },
     "e2e:ci": {
-      "dependsOn": ["build"],
+      "dependsOn": ["turbo-build"],
       "persistent": true,
       "inputs": [
         "src/**",

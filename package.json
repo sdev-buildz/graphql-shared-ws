@@ -51,7 +51,8 @@
     }
   },
   "scripts": {
-    "check": "turbo run build prettier:check lint type-check coverage:ci e2e:ci knip:ci",
+    "check": "turbo run turbo-build prettier:check lint type-check coverage:ci e2e:ci knip:ci",
+    "build": "turbo run turbo-build",
     "release": "pnpm run clean && pnpm run check && pnpm publish -r",
     "build-main": "tsdown",
     "build:worker-script": "tsdown -c tsdown.shared-worker-inline.config.ts",
