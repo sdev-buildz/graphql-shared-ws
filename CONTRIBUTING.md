@@ -1,10 +1,10 @@
-# Contributing to ts-strict-utils
+# Contributing to graphql-shared-ws
 
 Thank you for your interest in contributing! This document explains how to file issues, propose changes, and submit pull requests so we can review and merge them quickly.
 
 ## Code of Conduct
 
-Please follow a respectful, collaborative, and inclusive tone in all discussions, issues, and pull requests. By participating, you agree to follow the project's Code of Conduct. If the repository doesn't include one yet, please behave according to common community standards.
+Please follow a respectful, collaborative, and inclusive tone in all discussions, issues, and pull requests. By participating, you agree to follow the project's Code of Conduct.
 
 ## How you can help
 
@@ -32,7 +32,6 @@ Please follow a respectful, collaborative, and inclusive tone in all discussions
 3. Run linters, type checks, and tests locally before opening a PR:
 
 ```shell
-   pnpm run unit-tests
    pnpm run check
 ```
 
@@ -57,9 +56,9 @@ This helps generate changelogs and manage releases.
 ## Pull requests
 
 - Open a PR from a branch in your fork to the repository's default branch.
-- Make sure your branch contains a clear title and description describing the change and the motivation.
+- Make sure your PR contains a clear title and description describing the change and the motivation.
 - Link any related issue (e.g., "Fixes #123").
-- Ensure all CI checks pass (lint, typecheck, tests).
+- Ensure all CI checks pass (`pnpm run check`).
 - Keep changes focused and small — one logical change per PR.
 - Add or update tests for new behavior and include examples in documentation when appropriate.
 
@@ -71,7 +70,7 @@ This helps generate changelogs and manage releases.
 
 ## Releases and versioning
 
-This repository follows semantic versioning. Releases are managed by maintainers. If you think your change warrants a major/minor/patch bump, explain why either by running `npx changeset` or in the PR description.
+This repository follows semantic versioning. Releases are managed by maintainers. If you think your change warrants a major/minor/patch bump, explain why either by running `pnpm change` or in the PR description.
 
 ## CI and automation
 
@@ -79,7 +78,7 @@ Please make sure your PRs pass the project's CI (GitHub Actions or other). If yo
 
 ## Security
 
-If you discover a security vulnerability, please do NOT open a public issue. Instead, contact the maintainers privately (use the repository's security policy if present) or email `stevexdev@zohomail.in`.
+If you discover a security vulnerability, please do NOT open a public issue. Instead, contact the maintainers privately (use the repository's security policy) or email `stevexdev@zohomail.in`.
 
 ## Reporting issues
 
