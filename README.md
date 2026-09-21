@@ -52,6 +52,12 @@ sharedClient.subscribe(
 )
 ```
 
+### ⚙️ Browser architecture
+
+This library uses the [SharedWorker API](https://developer.mozilla.org/en-US/docs/Web/API/SharedWorker) and the [Web Locks API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Locks_API). The WebSocket connection is created inside the SharedWorker and shared by the connected tabs, windows, and iframes.
+
+> **Development note:** Browsers block network connections with self-signed certificates from SharedWorkers. During local development, start your browser with `--ignore-certificate-warnings` or the equivalent option for your browser.
+
 ## 📦 Migration from graphql-ws library
 
 🚀 You only need to update the import statements, unless you are using a custom WebSocket implementation.
