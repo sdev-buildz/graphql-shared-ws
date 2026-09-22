@@ -1,5 +1,15 @@
 # graphql-shared-ws
 
+## 1.0.3
+
+### Patch Changes
+
+- [#22](https://github.com/sdev-buildz/graphql-shared-ws/pull/22) [`7dd847e`](https://github.com/sdev-buildz/graphql-shared-ws/commit/7dd847e50a70eb8b3b5d2342c5eac06c6e001d10) Thanks [@sdev-buildz](https://github.com/sdev-buildz)! - remove console.error calls
+
+- [#22](https://github.com/sdev-buildz/graphql-shared-ws/pull/22) [`cc483e9`](https://github.com/sdev-buildz/graphql-shared-ws/commit/cc483e959ee552fdb2a48dc3bd9399fd7e9f1cea) Thanks [@sdev-buildz](https://github.com/sdev-buildz)! - docs(CONTRIBUTING.md): fix typo. remove redundant sentence structures. shorten cli commands
+
+- [#26](https://github.com/sdev-buildz/graphql-shared-ws/pull/26) [`ef91d1e`](https://github.com/sdev-buildz/graphql-shared-ws/commit/ef91d1e6f7355839b26e908f618f6acfdf2f2608) Thanks [@sdev-buildz](https://github.com/sdev-buildz)! - docs(README.md): add sub-section 'Browser architecture' about browser APIs used, and development notes on using self-signed-certificate
+
 ## 1.0.2
 
 ### Patch Changes
