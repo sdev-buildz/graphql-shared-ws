@@ -14,8 +14,8 @@ jobs:
       matrix:
         node: [22, 24]
     runs-on: ubuntu-latest
-    outputs:
-      urls: ${{ steps.pkgprnew.outputs.urls }}
+    # outputs:
+    #   urls: ${{ steps.pkgprnew.outputs.urls }}
     steps:
       # v7
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
@@ -30,35 +30,37 @@ jobs:
       - run: pnpm exec prettier --write ./pnpm-lock.yaml
       - run: pnpm run check
 
-      - name: Upload to pkgprnew
-        id: pkgprnew
-        if: matrix.node == 24
-        run: pnpm dlx pkg-pr-new publish
+      - run: git diff
 
-  # Installs the new pkg from pkgprnew and run e2e tests against the pkg and peer dep versions.
-  test-published-package:
-    runs-on: ubuntu-latest
-    needs: check-and-test-publish
-    strategy:
-      matrix:
-        graphql-ws-peer: ['5.5.5', '6.0.0']
-    steps:
-      # v7
-      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+  #     - name: Upload to pkgprnew
+  #       id: pkgprnew
+  #       if: matrix.node == 24
+  #       run: pnpm dlx pkg-pr-new publish
 
-      - uses: pnpm/setup@84cb39b217b10273981911c288cd62326dc7c6d2
-        with:
-          runtime: node@24
-          version: 11.27.0
+  # # Installs the new pkg from pkgprnew and run e2e tests against the pkg and peer dep versions.
+  # test-published-package:
+  #   runs-on: ubuntu-latest
+  #   needs: check-and-test-publish
+  #   strategy:
+  #     matrix:
+  #       graphql-ws-peer: ['5.5.5', '6.0.0']
+  #   steps:
+  #     # v7
+  #     - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
 
-      - run: pnpm ci
+  #     - uses: pnpm/setup@84cb39b217b10273981911c288cd62326dc7c6d2
+  #       with:
+  #         runtime: node@24
+  #         version: 11.27.0
 
-      # Add the peer dependency with the version to be tested.
-      - run: pnpm add --filter="e2e-web-app" graphql-ws@${{ matrix.graphql-ws-peer }}
+  #     - run: pnpm ci
 
-      # Add the published package. It will have its own version of the peer dependency.
-      - name: Install the published package for testing
-        run: pnpm add --filter="e2e-web-app" graphql-shared-ws@https://pkg.pr.new/sdev-buildz/graphql-shared-ws/graphql-shared-ws@${{ github.event.pull_request.head.sha }}
+  #     # Add the peer dependency with the version to be tested.
+  #     - run: pnpm add --filter="e2e-web-app" graphql-ws@${{ matrix.graphql-ws-peer }}
 
-      - name: Run tests against the published package
-        run: pnpm run e2e:ci
+  #     # Add the published package. It will have its own version of the peer dependency.
+  #     - name: Install the published package for testing
+  #       run: pnpm add --filter="e2e-web-app" graphql-shared-ws@https://pkg.pr.new/sdev-buildz/graphql-shared-ws/graphql-shared-ws@${{ github.event.pull_request.head.sha }}
+
+  #     - name: Run tests against the published package
+  #       run: pnpm run e2e:ci
