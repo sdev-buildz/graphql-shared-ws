@@ -14,8 +14,8 @@ jobs:
       matrix:
         node: [22, 24]
     runs-on: ubuntu-latest
-    outputs:
-      urls: ${{ steps.pkgprnew.outputs.urls }}
+    # outputs:
+    #   urls: ${{ steps.pkgprnew.outputs.urls }}
     steps:
       # v7
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
@@ -24,11 +24,13 @@ jobs:
       - uses: pnpm/setup@84cb39b217b10273981911c288cd62326dc7c6d2
         with:
           runtime: node@${{ matrix.node }}
-          version: 11.27.0
+          version: 11.20.0
 
       - run: pnpm ci
       - run: pnpm exec prettier --write ./pnpm-lock.yaml
       - run: pnpm run check
+
+      - run: git diff
 
       - name: Upload to pkgprnew
         id: pkgprnew
@@ -49,7 +51,7 @@ jobs:
       - uses: pnpm/setup@84cb39b217b10273981911c288cd62326dc7c6d2
         with:
           runtime: node@24
-          version: 11.27.0
+          version: 11.20.0
 
       - run: pnpm ci
 
