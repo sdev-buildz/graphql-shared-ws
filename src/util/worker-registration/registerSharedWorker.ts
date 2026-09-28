@@ -78,6 +78,8 @@ export const registerSharedWorker = async (): Promise<SharedWorker> => {
         workerUrl = customSharedWorkerScript.url
       } else {
         const workerScript = await decompressGzipString(sharedWorkerBase64)
+        console.log('decompressedString =')
+        console.log(workerScript)
         const blob = new Blob([workerScript])
         workerUrl = URL.createObjectURL(blob)
         await isBlobUrlValid(workerUrl)
