@@ -1,5 +1,11 @@
 # graphql-shared-ws
 
+## 1.0.4
+
+### Patch Changes
+
+- [#31](https://github.com/sdev-buildz/graphql-shared-ws/pull/31) [`a0fe5a6`](https://github.com/sdev-buildz/graphql-shared-ws/commit/a0fe5a679b9f7910a6564be197e4ac9f15415641) Thanks [@sdev-buildz](https://github.com/sdev-buildz)! - docs(WORKER_LIFECYCLE.md): explain the lifecycle of the SharedWorker
+
 ## 1.0.3
 
 ### Patch Changes
