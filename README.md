@@ -80,7 +80,7 @@ This library implements the exact same API as graphql-ws, except for the `webSoc
 
 ### 📦 SharedWorker size
 
-- The SharedWorker script is 📦 bundled, 🌳 tree-shaken, 📉 minified, 🗜️ gzipped, 🔠 base64 encoded and 📥 inlined within this library.
+- The SharedWorker script is 🌳 tree-shaken, 📉 minified, 📦 bundled, 🗜️ gzipped, 🔠 base64 encoded and 📥 inlined within this library.
 - All the SharedWorker registration logic (including decoding and decompression) are automatically handled by and within this library itself.
 - The base64-encoded SharedWorker script is only 6 KB.
 
