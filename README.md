@@ -84,6 +84,8 @@ This library implements the exact same API as graphql-ws, except for the `webSoc
 - All the SharedWorker registration logic (including decoding and decompression) are automatically handled by and within this library itself.
 - The base64-encoded SharedWorker script is only 6 KB.
 
+For a detailed overview of the SharedWorker lifecycle, refer to the [SharedWorker Lifecycle guide](./WORKER_LIFECYCLE.md).
+
 ### 🗂️ Subscription indexing
 
 - GraphQL subscriptions are indexed by their payloads across browsing contexts (across browser tabs, windows, iframes, etc...).
